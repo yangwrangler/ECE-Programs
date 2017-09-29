@@ -1,17 +1,17 @@
 /*******************************************************************
- 
- ECE 437: Operating Systems PA03
- Professor: Dr. Shu
- Created by: Panayioti Kitsos, Ryan Vacek
- Date: 9/28/17
 
- Makefile:
+  ECE 437: Operating Systems PA03
+  Professor: Dr. Shu
+  Created by: Panayioti Kitsos, Ryan Vacek
+  Date: 9/28/17
+
+  Makefile:
   make all - comiles and links files into executable myfib
   make test1 - runs the executable myfib (./mylib -F n -S 6)
   make test2 - runs the executable myfib (./mylib -F 6 -S 3)
   make clean - clean up files
 
-*******************************************************************/
+ *******************************************************************/
 #include <stdlib.h>
 #include <stdio.h> 
 #include <unistd.h> 
@@ -24,7 +24,7 @@ int fib_seq(int x);
 
 int main(int argc, char **argv)  
 {
-    // Definitions
+    // definitions
     int x=0, fib=0;
     int c, n, m, i;
     int Fflag, Sflag; 
@@ -33,7 +33,7 @@ int main(int argc, char **argv)
     // interprocess communication
     const int size=4096; 
     char *shared_memory; 
-
+    // read/write messages
     int segment_id=shmget(IPC_PRIVATE, size, S_IRUSR|S_IWUSR);
     shared_memory= (char *)shmat(segment_id, NULL, 0); 
 
@@ -55,38 +55,38 @@ int main(int argc, char **argv)
                 abort();
         }
 
-    //begin fibonacci sequence
+    // begin Fibonacci sequence
     for(i=0; i<=n; i+=1) {
 
         fib = fib_seq(x);
         x+=1;
 
         // fork child to compute next Fib numbers recursively
-        //if((((x-1)>m)&&((x-2)>m))) {
-        if((x-1)>m) {
+        if((((x-1)>m)&&((x-2)>m))) {
             pid=fork();
             if (pid < 0) {
                 fprintf(stderr, "Fork failed");
                 return 1;
             }
             if (pid == 0) {
-                printf("\nChild computing next Fib number...\n");
-                fib = fib_seq(x); 
-                printf("Child process complete\n");
+                printf("\nChild computing next Fib number...");
+                fib = fib_seq(x-1);
+                printf("\nChild process complete");
+                printf("\nChild Fibonacci sequence of %d is %d\n", x-1, fib);
+                return 0;
             }
             else {
-              printf("\nParent waiting for child to finish...\n");
-              wait(NULL);
+                printf("Parent waiting for child to finish...\n");
+                wait(NULL);
+                continue;
             }
-            return 0;
         }
         // compute next fib numbers recursively
-        //else if((((x-1)<=m)&&((x-2)<=m))) {
-        else if((x-1)<=m) {
+        else if((((x-1)<=m)&&((x-2)<=m))) {
             printf("\nComputing without child...");
             fib = fib_seq(x-1);
         }
         printf("\nFibonacci sequence of %d is %d\n", x-1, fib);
     }
     return 0;
-}
+    }
