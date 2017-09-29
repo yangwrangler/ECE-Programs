@@ -14,7 +14,6 @@ int extern x;
 
 int fib_seq(int x) { 
     
-     srand(time(NULL));
      int i, rint = (rand() % 30); 
      double dummy; 
 
@@ -27,5 +26,5 @@ int fib_seq(int x) {
      else if (x == 1) 
      	return(1); 
      else 
-     	return (fib_seq(x-1)+fib_seq(x-2));
+     	return fib_seq(x-1)+fib_seq(x-2);
 }

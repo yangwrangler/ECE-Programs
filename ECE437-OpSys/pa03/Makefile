@@ -5,12 +5,17 @@
 # Date: September 28, 2017
 #
 # make all: compiles and links all files
-# make test: runs executable for prob1
+# make test1: runs executable for prob1 (n=6 m=6)
+# make test2: runs executable for prob1 (n=6 m=3)
 # make clean: cleans up .o and *~ files
 #
+# Options:
+#	-F => nth sequence
+#	-S => computing threshold
+#
 ################################################################################	
+
 CC = gcc
-#CFLAGS = -std=gnu99 -g -O -c
 CFLAGS = -g -Wall -Werror -c
 OBJ = main.o fib_seq.o
 
@@ -29,8 +34,11 @@ fib_seq: fib_seq.c
 
 ################################ Test ##########################################
 
-test: myfib
-	./myfib -F 3 -S 2
+test1: myfib
+	./myfib -F 6 -S 6
+
+test2: myfib
+	./myfib -F 6 -S 3
 
 #############################  Clean  ##########################################
 
