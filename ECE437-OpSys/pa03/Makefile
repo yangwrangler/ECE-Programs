@@ -40,7 +40,7 @@ fib_seq: fib_seq.c
 	$(CC) $(CFLAGS) $@.c
 
 signals: signals.c
-	$(CC) $(CFLAG3) $@.c signals
+	$(CC) $@.c$ (CFLAG3) signals
 
 ################################ Test ##########################################
 
