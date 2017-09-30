@@ -16,7 +16,7 @@
 #
 # Problem 2:
 # 	make signals: compiles executable signals
-# 	make test3: run exexutable (signals) for prob2
+# 	make test3: run executable (signals) for prob2
 # 	make clean: cleans up .o and *~ files
 #
 ################################################################################	
