@@ -50,7 +50,7 @@ test1: myfib
 test2: myfib
 	./myfib -F 6 -S 3
 
-test3: sig
+test3: signals
 	./sigals | yes
 
 #############################  Clean  ##########################################
