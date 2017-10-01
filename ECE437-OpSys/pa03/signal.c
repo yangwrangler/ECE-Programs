@@ -53,7 +53,8 @@ int main() {
         perror("*** WARNING: Fork failed! ***");
     if(pid == 0) {
         execl(PATH, "yes", NULL);    
-    } else {
+    }
+    else {
         signal(SIGINT, cHandler);
         signal(SIGTSTP, zHandler);
         while(running) {
